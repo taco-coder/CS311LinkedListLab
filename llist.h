@@ -4,13 +4,13 @@
 // Don't forget PURPOSE and PARAMETERS 
 // =======================================================
 // HW#: HW3P1 llist
-// Your name: **
+// Your name: Tahwab Noori
 // Compiler:  g++ 
 // File type: headher file 
 //=======================================================
 
 //----- Globally setting up the alias and struct  ----------------
-typedef int el_t;  // elements will be **
+typedef int el_t;  // elements will be ints
 
 //a list node is defined here as a struct Node
 // I could have done class Node and add the data members under public
@@ -42,25 +42,25 @@ public:
 	//checks if the list is empty then returns true
 	bool isEmpty();
 
-	//**
+	//displays all the elements in all the nodes
 	void displayAll();
 
-	//**
+	//adds new node to the front of the list
 	void addFront(el_t);
 
-	//**
+	//adds node to the rear of the list
 	void addRear(el_t);
 
-	//**
+	//deletes the frontmost node
 	void deleteFront(el_t&);
 
-	//**
+	//deletes the rearmost node
 	void deleteRear(el_t&);
 
-	//**
+	//deletes the ith node
 	void deleteIth(int, el_t&);
 
-	//**    
+	//adds node just before the ith node
 	void addbeforeIth(int, el_t);
 
 };
