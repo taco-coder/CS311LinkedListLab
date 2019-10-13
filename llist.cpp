@@ -34,18 +34,19 @@ llist::llist() {
 //destructor
 //while not empty calls deleteFront and prints out a command letting the user know
 llist::~llist() {
+	int x;
 	if (!isEmpty()) {
 		cout << "Calling the llist destructor" << endl;
 		while (!isEmpty()) {
-			deleteFront();
+			deleteFront(x);
 		}
 	}
 }
 
 //checks if list is empty
 bool llist::isEmpty() {
-	if (Front == Rear == NULL && Count == 0) {
-		true;
+	if (Front != NULL && Rear != NULL && Count != 0) {
+		return false;
 	}
 }
 //if list is empty, displays empty
@@ -55,11 +56,13 @@ void llist::displayAll() {
 		cout << "Empty" << endl;
 	}
 	else {
-		Node* display = Front;
-		while (display->Elem != NULL) {
-			cout << display->Elem << endl;
+		Node* display = new Node;
+			display = Front;
+		do {
+			cout << display->Elem;
 			display = display->Next;
-		}
+		} while (display != NULL);
+		cout << endl;
 	}
 }
 
@@ -86,9 +89,17 @@ void llist::addFront(el_t NewNum) {
 	Node* x = new Node;
 	x->Elem = NewNum;
 	x->Next = NULL;
-	Front = x;
 	if (Count == 0) {
+		Front = x;
 		Rear = x;
+	}
+	else if (Count == 1) {
+		Front = x;
+		Front->Next = Rear;
+	}
+	else {
+		x->Next = Front;
+		Front = x;
 	}
 	Count++;
 }
@@ -106,7 +117,8 @@ void llist::deleteFront(el_t& OldNum) {
 		Front = Rear = NULL;
 		Count--;
 	} else {
-		Node* temp = Front->Next;
+		Node* temp = new Node;
+		temp = Front->Next;
 		OldNum = Front->Elem;
 		cout << OldNum << endl;
 		delete Front;
@@ -129,7 +141,8 @@ void llist::deleteRear(el_t& OldNum) {
 	}
 	else {
 		OldNum = Rear->Elem;
-		Node* p = Front;
+		Node* p = new Node;
+		p = Front;
 		while (p->Next != Rear) {
 			p = p->Next;
 		}
@@ -152,17 +165,16 @@ void llist::deleteIth(int I, el_t& OldNum) {
 	else if (isEmpty()) {
 		throw Underflow();
 	}
-	else if (Count == 1) {
-		int x;
-		deleteFront(x);
+	else if (I == 1) {
+		deleteFront(OldNum);
 	}
 	else if (I == Count) {
-		int x;
-		deleteRear(x);
+		deleteRear(OldNum);
 	}
 	else {
 		//node to point to just before ith node
-		Node* p = Front;
+		Node* p = new Node;
+		p = Front;
 		for (int i = 1; i < I - 1; i++) {
 			p = p->Next;
 		}
@@ -182,18 +194,19 @@ void llist::deleteIth(int I, el_t& OldNum) {
 //I is Count + 1
 //add right before the Ith node.Cout if updated.
 void llist::addbeforeIth(int I, el_t newNum) {
-	if (I < 1 || I > Count) {
+	if (I < 1 || I > Count + 1) {
 		throw OutOfRange();
 	}
 	else if (I == 1) {
 		addFront(newNum);
 	}
-	else if (I == Count) {
+	else if (I == Count + 1) {
 		addRear(newNum);
 	}
 	else {
 		//node to point to just before ith node
-		Node* p = Front;
+		Node* p = new Node;
+		p = Front;
 		for (int i = 1; i < I - 1; i++) {
 			p = p->Next;
 		}
